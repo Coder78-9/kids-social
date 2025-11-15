@@ -1,93 +1,116 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Homepage and sign in</title>
-        <style>
-             body {
-                display: flex;
-                justify-conetent: center;
-                align-items: center;
-                min-hight: 100vh;
-                background:#EFCEF0;
-                margin:0;
-                font-family: sans-serif;
-            }
-            .container {
-                background:white;
-                padding:20px;
-                width: 300px;
-                border-radius: 10px
-          } 
-        </style>
-    </head>
-    <body>
+<head>
+    <meta charset="utf-8">
+    <title>Homepage and sign in</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #EFCEF0;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
 <div class="container">
-        <h1>Kids are social! Login or sign in!</h1>
-  <form>
-      <input placeholder="email..." id="email" type="email"> <input placeholder="password..." id="password"><button id="login-btn">Login</button>
-     <button id="signup-btn">Sign in</button>
-    <p id="message"></p>
+    <h1>Kids are social! Login or sign in!</h1>
+
+    <form>
+        <input placeholder="email..." id="email" type="email">
+        <input placeholder="password..." id="password" type="password">
+
+        <button id="login-btn">Login</button>
+        <button id="signup-btn">Sign in</button>
+
+        <p id="message"></p>
+    </form>
 </div>
-       </form>
-     <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-// Firebase setup
-const firebaseConfig = {
-  apiKey: "AIzaSyA6IRJ_0LNbb1KOZt_G174pgYsjDx6zPm4",
-  authDomain: "kids-social-5b36f.firebaseapp.com",
-  projectId: "kids-social-5b36f",
-  storageBucket: "kids-social-5b36f.firebasestorage.app",
-  messagingSenderId: "916072443602",
-  appId: "1:916072443602:web:eb7dbd40082a66494f470b",
-  measurementId: "G-CPCZ7M68PW"
-};
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+        getAuth, 
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+    // Firebase setup
+    const firebaseConfig = {
+        apiKey: "AIzaSyA6IRJ_0LNbb1KOZt_G174pgYsjDx6zPm4",
+        authDomain: "kids-social-5b36f.firebaseapp.com",
+        projectId: "kids-social-5b36f",
+        storageBucket: "kids-social-5b36f.firebasestorage.app",
+        messagingSenderId: "916072443602",
+        appId: "1:916072443602:web:eb7dbd40082a66494f470b",
+        measurementId: "G-CPCZ7M68PW"
+    };
 
-// Frontend DOM stuff
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-const signupButton = document.getElementById("signup-btn");
-const loginButton = document.getElementById("login-btn");
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-function onLoginButton(event) {
-  event.preventDefault();
- signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
-  .then((user) => {
-   alert("Yay! Logged in! 🥳");
-    window.location.href = "feed.html";
-  })
-  .catch((error) => {
-   alert("Couldn't Login, check email or password 🤔");
-  });
-}
+    // DOM elements
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const signupButton = document.getElementById("signup-btn");
+    const loginButton = document.getElementById("login-btn");
 
-loginButton.addEventListener("click", onLoginButton);
+    // Login
+    function onLoginButton(event) {
+        event.preventDefault();
 
-function onSignupButton(event) {
-  event.preventDefault();
+        signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+            .then(() => {
+                alert("Yay! Logged in! 🥳");
+                window.location.href = "feed.html";
+            })
+            .catch(() => {
+                alert("Couldn't Login, check email or password 🤔");
+            });
+    }
+    loginButton.addEventListener("click", onLoginButton);
 
-  createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
-    .then((user) => {
-      alert("Wooh! Account created! 🥳");
-        window.location.href = "feed.html";
-    })
-    .catch((error) => {
-      alert("Uh oh! We can't create your account! ❌😢");
-    });
-}
+    // Signup
+    function onSignupButton(event) {
+        event.preventDefault();
 
-signupButton.addEventListener("click", onSignupButton);
-     
- 
+        createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
+            .then(() => {
+                alert("Wooh! Account created! 🥳");
+                window.location.href = "feed.html";
+            })
+            .catch(() => {
+                alert("Uh oh! We can't create your account! ❌😢");
+            });
+    }
+    signupButton.addEventListener("click", onSignupButton);
 </script>
+
 </body>
 </html>
