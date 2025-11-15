@@ -7,9 +7,9 @@
     <style>
         body {
             display: flex;
-            justify-content: center;       /* fixed typo */
-            align-items: center;           /* fixed typo */
-            min-height: 100vh;             /* fixed typo */
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             background: #EFCEF0;
             margin: 0;
             font-family: sans-serif;
@@ -28,8 +28,21 @@
             border-radius: 8px;
             margin-bottom: 10px;
         }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
+
 <body>
 
 <div class="container">
@@ -45,7 +58,6 @@
 </div>
 
 <script type="module">
-    // 1. Firebase imports
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { 
         getAuth, 
@@ -56,10 +68,10 @@
         getFirestore, 
         collection, 
         addDoc, 
-        onSnapshot 
+        onSnapshot
     } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // 2. Firebase config
+    // Firebase setup
     const firebaseConfig = {
         apiKey: "AIzaSyA6IRJ_0LNbb1KOZt_G174pgYsjDx6zPm4",
         authDomain: "kids-social-5b36f.firebaseapp.com",
@@ -70,88 +82,55 @@
         measurementId: "G-CPCZ7M68PW"
     };
 
-    // 3. Init Firebase
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // 4. Redirect if NOT logged in
+    // Redirect if NOT logged in
     onAuthStateChanged(auth, (user) => {
         if (!user) {
             window.location.href = "index.html";
         }
     });
 
-    // 5. DOM elements
+    // DOM
     const postInput = document.getElementById("post-text");
     const postButton = document.getElementById("post-button");
     const postsDiv = document.getElementById("posts");
 
-    // 6. Create a post
+    // Add a post
     postButton.addEventListener("click", () => {
-        const text = postInput.value; 
-        //! replace postInput → your input element
-        //! replace text → the message the user typed
+        const text = postInput.value;
 
-        if (text === "") {
-            // nothing
-        } else {
-            addDoc(
-                collection(db, "posts"), 
-                //! replace db → your Firestore database
-                //! replace "posts" → your Firestore collection name
+        if (text === "") return;
 
-                {
-                    text: text,
-                    //! replace text → the message being posted
+        addDoc(collection(db, "posts"), {
+            text: text,
+            user: auth.currentUser.email,
+            time: Date.now()
+        });
 
-                    user: auth.currentUser.email,
-                    //! replace auth.currentUser.email → the logged-in user's email
-
-                    time: Date.now()
-                    //! replace Date.now() → timestamp
-                }
-            );
-
-            postInput.value = "";
-            //! replace postInput → input box (clears it)
-        }
+        postInput.value = "";
     });
 
-    // 7. Show posts live
+    // Show posts live
     onSnapshot(collection(db, "posts"), (snapshot) => {
         postsDiv.innerHTML = "";
-        //! replace postsDiv → the div where posts appear
 
         snapshot.forEach((doc) => {
-            const info = doc.data(); 
-            //! replace info → {text, user, time}
-
+            const info = doc.data();
             const box = document.createElement("div");
-            //! replace box → HTML element for a single post
 
             box.classList.add("post-box");
             box.innerHTML = `
                 <p><strong>${info.user}</strong></p>
-                //! replace info.user → user email
-
                 <p>${info.text}</p>
-                //! replace info.text → post message
             `;
 
             postsDiv.appendChild(box);
-            //! replace postsDiv → posts container
         });
     });
-
 </script>
 
 </body>
 </html>
-
-
-
-
-
-    
-
