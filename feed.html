@@ -3,9 +3,302 @@
     <head>
         <meta charset="utf-8">
         <title>Kids social - feed</title>
+        <style>
+            body {
+                display: flex;
+                justify-conetent: center;
+                align-items: center;
+                min-hight: 100vh;
+                background:#EFCEF0;
+                margin:0;
+                font-family: sans-serif;
+            }
+            .container {
+                background:white;
+                padding:20px;
+                width: 300px;
+                border-radius: 10px
+          }
+        </style>
+    </head>
+    <body>
+<div class="countainer">
+        <h1>Welcome to kids feed</h1>
+<p>You are logged in or you succsecefull created your account - posts will be here!</p>
+    <h2>Create a post</h2>
+    <input id="post-text" placeholder="Write something..."><button id="post-button">Post</button>
+    <h2>All posts</h2>
+    <div id="posts"></div>
+</div>
+        <script type="module">
+  // 1. Import Firebase tools
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { 
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  onSnapshot 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // 2. Your Firebase config (same as login page)
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6IRJ_0LNbb1KOZt_G174pgYsjDx6zPm4",
+    authDomain: "kids-social-5b36f.firebaseapp.com",
+    projectId: "kids-social-5b36f",
+    storageBucket: "kids-social-5b36f.firebasestorage.app",
+    messagingSenderId: "916072443602",
+    appId: "1:916072443602:web:eb7dbd40082a66494f470b",
+    measurementId: "G-CPCZ7M68PW"
+  };
+
+  // 3. Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  // 4. Get auth
+  const auth = getAuth(app);
+const db = getFirestore(app);
+
+  // 5. Check if user is logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // do nothing for now
+    } else {
+      window.location.href = "index.html"; // kick them back
+    }
+  });
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Kids social - feed</title>
     </head>
     <body>
 <h1>Welcome to kids feed</h1>
 <p>You are logged in or you succsecefull created your account - posts will be here!</p>
+    <h2>Create a post</h2>
+    <input id="post-text" placeholder="Write something..."><button id="post-button">Post</button>
+    <h2>All posts</h2>
+    <div id="posts"></div>
+        <script type="module">
+  // 1. Import Firebase tools
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { 
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  onSnapshot 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // 2. Your Firebase config (same as login page)
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6IRJ_0LNbb1KOZt_G174pgYsjDx6zPm4",
+    authDomain: "kids-social-5b36f.firebaseapp.com",
+    projectId: "kids-social-5b36f",
+    storageBucket: "kids-social-5b36f.firebasestorage.app",
+    messagingSenderId: "916072443602",
+    appId: "1:916072443602:web:eb7dbd40082a66494f470b",
+    measurementId: "G-CPCZ7M68PW"
+  };
+
+  // 3. Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  // 4. Get auth
+  const auth = getAuth(app);
+const db = getFirestore(app);
+
+  // 5. Check if user is logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // do nothing for now
+    } else {
+      window.location.href = "index.html"; // kick them back
+    }
+  });
+ const postInput = document.getElementById("post-text");
+ const postButton = document.getElementById("post-button");
+postButton.addEventListener("click", () => {
+  // addDoc(collection(db, "posts"), {
+  //   text: postInput.value,
+  //   user: currentUserEmail,  
+  //   time: Date.now()
+  // });
+});
+onSnapshot(collection(db, "posts"), (snapshot) => {
+  // update the page with posts
+});
+    
+</script>
+
+    </body>
+</html>
+
+ const postButton = document.getElementById("post-button");
+postButton.addEventListener("click", () => {
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Kids social - feed</title>
+    </head>
+    <body>
+<h1>Welcome to kids feed</h1>
+<p>You are logged in or you succsecefull created your account - posts will be here!</p>
+    <h2>Create a post</h2>
+    <input id="post-text" placeholder="Write something..."><button id="post-button">Post</button>
+    <h2>All posts</h2>
+    <div id="posts"></div>
+        <script type="module">
+  // 1. Import Firebase tools
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { 
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  onSnapshot 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // 2. Your Firebase config (same as login page)
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6IRJ_0LNbb1KOZt_G174pgYsjDx6zPm4",
+    authDomain: "kids-social-5b36f.firebaseapp.com",
+    projectId: "kids-social-5b36f",
+    storageBucket: "kids-social-5b36f.firebasestorage.app",
+    messagingSenderId: "916072443602",
+    appId: "1:916072443602:web:eb7dbd40082a66494f470b",
+    measurementId: "G-CPCZ7M68PW"
+  };
+
+  // 3. Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  // 4. Get auth
+  const auth = getAuth(app);
+const db = getFirestore(app);
+
+  // 5. Check if user is logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // do nothing for now
+    } else {
+      window.location.href = "index.html"; // kick them back
+    }
+  });
+
+postButton.addEventListener("click", () => {
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Kids social - feed</title>
+    </head>
+    <body>
+<h1>Welcome to kids feed</h1>
+<p>You are logged in or you succsecefull created your account - posts will be here!</p>
+    <h2>Create a post</h2>
+    <input id="post-text" placeholder="Write something..."><button id="post-button">Post</button>
+    <h2>All posts</h2>
+    <div id="posts"></div>
+        <script type="module">
+  // 1. Import Firebase tools
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { 
+    getAuth,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  onSnapshot 
+} from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+  // 2. Your Firebase config (same as login page)
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6IRJ_0LNbb1KOZt_G174pgYsjDx6zPm4",
+    authDomain: "kids-social-5b36f.firebaseapp.com",
+    projectId: "kids-social-5b36f",
+    storageBucket: "kids-social-5b36f.firebasestorage.app",
+    messagingSenderId: "916072443602",
+    appId: "1:916072443602:web:eb7dbd40082a66494f470b",
+    measurementId: "G-CPCZ7M68PW"
+  };
+
+  // 3. Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
+  // 4. Get auth
+  const auth = getAuth(app);
+const db = getFirestore(app);
+
+  // 5. Check if user is logged in
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // do nothing for now
+    } else {
+      window.location.href = "index.html"; // kick them back
+    }
+  });
+
+postButton.addEventListener("click", () => {
+    const text = postInput.value;
+
+    if (text === "") {
+        // nothing happens
+    } else {
+        addDoc(
+            collection(db, "posts"),
+            {
+                text: text,
+                user: auth.currentUser.email,
+                time: Date.now()
+            }
+        );
+
+        postInput.value = "";
+    }
+});
+
+
+onSnapshot(collection(db, "posts"), (snapshot) => {
+  // update the page with posts
+});
+    
+</script>
+
+    </body>
+</html>
+
+ });
+});
+onSnapshot(collection(db, "posts"), (snapshot) => {
+  // update the page with posts
+});
+    
+</script>
+
+    </body>
+</html>
+ 
+});
+
+onSnapshot(collection(db, "posts"), (snapshot) => {
+  // update the page with posts
+});
+    
+</script>
+
     </body>
 </html>
