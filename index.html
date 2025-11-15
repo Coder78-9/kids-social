@@ -44,6 +44,7 @@ function onLoginButton(event) {
  signInWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
   .then((user) => {
    alert("Yay! Logged in! 🥳");
+    window.location.href = "feed.html";
   })
   .catch((error) => {
    alert("Couldn't Login, check email or password 🤔");
@@ -58,6 +59,7 @@ function onSignupButton(event) {
   createUserWithEmailAndPassword(auth, emailInput.value, passwordInput.value)
     .then((user) => {
       alert("Wooh! Account created! 🥳");
+        window.location.href = "feed.html";
     })
     .catch((error) => {
       alert("Uh oh! We can't create your account! ❌😢");
