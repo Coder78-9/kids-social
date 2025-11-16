@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Kids Social - Reels</title>
+    </head>
+    <body>
+<h1>Reels</h1>
+<h2>Take quiz to see witch videos you should have</h2>
+  <h4>Do you want fast videos or slow ones</h4>
+      <button id="slow-btn">Slow</button>
+      <button id="fast-btn">Fast</button>
+  <h4>What do you want to learn</h4>
+      <button id="math-btn">Math</button>
+      <button id="reading-btn">Reading</button>
+      <button id="science-btn">Science</button>
+<h4>What is your age rang</h4>
+      <button id="1st-age-range">3-5</button>
+      <button id="2nd-age-range">6-8</button>
+      <button id="3rd-age-range">9-12</button>
+      <button id="even-older-range">Even older</button>
+    <button id="submit-quiz">Save Choices</button>
+
+      <script type="module">
+    // --- Firebase imports ---
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { 
+        getAuth,
+        onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    import { 
+        getFirestore,
+        collection,
+        addDoc,
+        setDoc,
+        getDoc,
+        doc,
+        query,
+        where,
+        onSnapshot
+    } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    // --- Your Firebase config ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyA6IRJ_0LNbb1KOZt_G174pgYsjDx6zPm4",
+        authDomain: "kids-social-5b36f.firebaseapp.com",
+        projectId: "kids-social-5b36f",
+        storageBucket: "kids-social-5b36f.firebasestorage.app",
+        messagingSenderId: "916072443602",
+        appId: "1:916072443602:web:eb7dbd40082a66494f470b",
+        measurementId: "G-CPCZ7M68PW"
+    };
+
+    // --- Initialize Firebase ---
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+   //varibles
+    var mathbtn = document.getElementById("math-btn");
+    var readingbtn = document.getElementById("reading-btn");
+    var sciencebtn = document.getElementById("science-btn");
+    var slowbtn = document.getElementById("slow-btn");
+    var fastbtn = document.getElementById("fast-btn");
+    var oneAgeRange = document.getElementById("1st-age-range");
+    var twoAgeRange = document.getElementById("2nd-age-range");
+    var thirdAgeRange = document.getElementById("3rd-age-range");
+    var evenOlderAgeRange = document.getElementById("even-older-range");
+     //storing varibles
+    var subject = "";
+    var ageRange = "";
+    var speed = "";   
+    //functions
+    var onMathButton = function() {
+      subject = "math";
+   }
+    var onReadingButton = function() {
+      subject = "reading";
+    }
+    var onScienceButton = function() {
+      subject = "science";
+    }
+    var onSlowButton = function() {
+      speed = "slow"
+    }
+    var onFastButton = function() {
+      speed = "fast"
+    }
+    var onOneAgeRange = function() {
+      ageRange = "3-5"
+    }
+    var onTwoAgeRange = function() {
+      ageRange = "6-8"
+    }
+    var onThirdAgeRange = function() {
+      ageRange = "9-12"
+    }
+    var onEvenOlderAgeRange = function() {
+      ageRange = "13-older"
+    }
+    //event listners
+    mathbtn.addEventListener("click", onMathButton);
+    readingbtn.addEventListener("click",onReadingButton);
+    sciencebtn.addEventListener("click",onScienceButton);
+    slowbtn.addEventListener("click", onSlowButton);
+    fastbtn.addEventListener("click",onFastButton);
+    oneAgeRange.addEventListener("click",onOneAgeRange);
+    twoAgeRange.addEventListener("click",onTwoAgeRange);
+    thirdAgeRange.addEventListener("click",onThirdAgeRange);
+    evenOlderAgeRange.addEventListener("click", onEvenOlderAgeRange);
+    // Get user
+     onAuthStateChanged(auth, (user) => {
+    if (user) {
+        // you can save quiz answers here later
+    }
+});
+// submit button
+        var submitBtn = document.getElementById("submit-quiz");
+
+var onSubmitQuiz = function() {
+  if (subject === "" || speed === "" || ageRange === "") {
+    alert("Please pick all choices before saving!🤦‍♀️");
+    return;
+}
+var user = auth.currentUser;
+  setDoc(
+    doc(db, "quizResults", user.uid),
+    {
+        subject: subject,
+        speed: speed,
+        ageRange: ageRange
+    }
+).then(() => {
+    alert("Quiz saved!");
+});
+
+};
+
+submitBtn.addEventListener("click", onSubmitQuiz);
+
+         
+   
+</script>
+       
+    </body>
+</html>
